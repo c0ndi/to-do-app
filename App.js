@@ -24,16 +24,17 @@ class App extends React.Component {
         }
         
     } 
-    handleRemoveItem = (e) => {
-        let id = e.target.id;
-        let parentId = e.target.parentNode.id;
-        if(id == parentId)
-        {
-            this.state.items.pop(e.target)    
-            this.setState({ 
-                items: this.state.items,
-            });
-        }
+    handleRemoveItem(item){
+        let finalArray = []
+        this.state.items.forEach(element => {
+            if(element != item)
+            {
+                finalArray.push(element)        
+            }
+        })
+        this.setState({ 
+            items: finalArray,
+        });
     }
     render() { 
         return (     
@@ -52,7 +53,7 @@ class App extends React.Component {
                                     return(
                                         <div className="task-container" id={item}>
                                             <span className="span-task">{item}</span>
-                                            <button className="remove-btn" onClick={this.handleRemoveItem} id={item}>Remove</button>
+                                            <button className="remove-btn" onClick={this.handleRemoveItem.bind(this, item)} id={item}>Remove</button>
                                         </div>
                                     )
                                 })}
